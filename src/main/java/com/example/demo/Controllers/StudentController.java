@@ -1,30 +1,36 @@
 package com.example.demo.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import com.example.demo.DTO.StudentDTO;
 import com.example.demo.Models.Student;
 import com.example.demo.Repositaries.StudentRepositary;
 
 @RestController
 @RequestMapping(path="api/student")
 public class StudentController {
-    @Autowired
 
-    private StudentRepositary StudentRepositary;
+    @Autowired
+    private StudentRepositary studentRepository;
 
     @PostMapping(path="/add")
-    public @ResponseBody String addNewStudent(@RequestBody String name, @RequestBody String email ,@RequestBody String ContactNo){
-    
-    Student stu = new Student();
-    stu.setName(name);
-    stu.setEmail(email);
-    stu.setContactNo(ContactNo);
-    StudentRepositary.save(stu);
-    return "Saved";
-}
+    public String addNewStudent(@RequestBody StudentDTO student){
+        Student stu = Student.builder()
+                             .email(student.getEmail())
+                             .name(student.getName())
+                             .contactNo(student.getContactNo())
+                             .build();
+        studentRepository.save(stu);
+        return "Saved";
+    }
+
+    @GetMapping(path = "/")
+    public String getMethodName() {
+        return "Hi mama thevindu";
+    }
+
+    // @GetMapping(path = "/all")
+    // public String getAllStudents() {
+    //     return "Hi mn Oshada";
+    // }
 }

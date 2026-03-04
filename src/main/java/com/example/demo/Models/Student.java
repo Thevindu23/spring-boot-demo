@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "students")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student {
@@ -26,5 +28,11 @@ public class Student {
     private String email;
 
     private String contactNo;
+
+    // public Student(name,email,contactNo){
+    //         this.name = name;
+    //         this.email = email;
+    //         this.contactNo = contactNo;
+    // }
 
 }
